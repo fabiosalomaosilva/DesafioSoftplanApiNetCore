@@ -1,4 +1,5 @@
 using DesafioSoftplan.Api.Helpers;
+using DesafioSoftplan.Api.Hubs.Cache;
 using DesafioSoftplan.Infra.Ioc;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
@@ -26,10 +27,24 @@ namespace DesafioSoftplan.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc().AddFluentValidation();
             services.AddContainerDependencyInjection(Configuration);
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ClientPermission", policy =>
+                {
+                    policy.AllowAnyHeader(
+                          )
+                              .AllowAnyMethod()
+                              .WithOrigins("*", "http://desafiosoftplan.salomaovogth.com.br", "https://desafio-softplan-react.vercel.app", "http://localhost:3000")
+                              .AllowCredentials();
+                });
+            });
+
+            services.AddSignalR();
+            services.AddSingleton<IUserSessionCache, UserSessionCache>();
 
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
@@ -84,10 +99,8 @@ namespace DesafioSoftplan.Api
                     c.SwaggerEndpoint("/swagger/v2/swagger.json", "DesafioSoftplan Api v2");
                 });
             }
-            app.UseCors(x => x
-               .AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader());
+            app.UseCors("ClientPermission");
+
 
             app.UseHttpsRedirection();
 
@@ -98,6 +111,7 @@ namespace DesafioSoftplan.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/hubs/chat");
             });
         }
     }
