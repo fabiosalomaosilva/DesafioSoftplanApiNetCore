@@ -21,7 +21,7 @@ namespace DesafioSoftplan.Api.Controllers
                 var repos = new List<string>
                 {
                     "https://github.com/fabiosalomaosilva/DesafioSoftplanReact",
-                    "https://github.com/fabiosalomaosilva/DesafioSoftplanReact"
+                    "https://github.com/fabiosalomaosilva/DesafioSoftplanApiNetCore"
                 };
                 return Ok(repos);
             }
