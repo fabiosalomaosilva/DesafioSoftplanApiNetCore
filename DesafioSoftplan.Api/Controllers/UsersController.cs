@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace DesafioSoftplan.Api.Controllers
 {
-    [Route("api/v2/[controller]")]
+    [Route("api/v1/[controller]")]
+    [Authorize]
     [ApiController]
-    public class UsuersController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UsuersController(IUserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
 
         // GET: api/<UsuariosController>
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Get()
         {

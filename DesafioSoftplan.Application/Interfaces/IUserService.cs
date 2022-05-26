@@ -15,8 +15,5 @@ namespace DesafioSoftplan.Services.Interfaces
         Task<UserDto> EditAsync(UserDto obj);
 
         Task DeleteAsync(int id);
-
-        Task<UserDto> Authenticate(string email, string password);
-
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace DesafioSoftplan.Api.Controllers
 {
     [Route("api/v1/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class RepositoriosGitController : ControllerBase
     {

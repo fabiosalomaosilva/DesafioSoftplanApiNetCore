@@ -27,7 +27,7 @@ namespace DesafioSoftplan.Infra.Data.Validations
             {
                 Id = 1,
                 Name = "Administrador",
-                Email = "teste@teste.123",
+                Email = "teste@teste.com",
                 Password = "C8E453E305380C3C103BE203AA7720F444333D6F"
             });
         }

@@ -49,13 +49,5 @@ namespace DesafioSoftplan.Services.Services
         {
             await _UserRepository.DeleteAsync(id);
         }
-
-        public async Task<UserDto> Authenticate(string email, string password)
-        {
-            var user = await _UserRepository.Authenticate(email, password);
-            return _mapper.Map<UserDto>(user);
-
-        }
     }
-
 }

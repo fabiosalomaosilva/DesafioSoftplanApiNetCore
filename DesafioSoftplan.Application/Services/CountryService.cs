@@ -50,5 +50,4 @@ namespace DesafioSoftplan.Services.Services
             await _CountryRepository.DeleteAsync(id);
         }
     }
-
 }

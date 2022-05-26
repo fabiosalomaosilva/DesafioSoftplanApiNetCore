@@ -1,13 +1,9 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 443
 
-ENV ASPNETCORE_HTTP_PORT=49170
-ENV ASPNETCORE_URLS=http://+:49170;http://+:80
-ENV DOTNET_USE_POLLING_FILE_WATCHER=1
-ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS=http://+:8000
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
@@ -20,10 +16,10 @@ COPY ["DesafioSoftplan.Infra.Context/DesafioSoftplan.Infra.Data.csproj", "Desafi
 RUN dotnet restore "DesafioSoftplan.Api/DesafioSoftplan.Api.csproj"
 COPY . .
 WORKDIR "/src/DesafioSoftplan.Api"
-RUN dotnet build "DesafioSoftplan.Api.csproj" -c Release -o /app/build
+RUN dotnet build "DesafioSoftplan.Api.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DesafioSoftplan.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "DesafioSoftplan.Api.csproj" -c Debug -o /app/publish
 
 FROM base AS final
 WORKDIR /app
