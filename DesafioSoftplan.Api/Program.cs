@@ -11,6 +11,7 @@ namespace DesafioSoftplan.Api
 {
     public class Program
     {
+        private static string[] urls => new string[] {"https://localhost:5000", "http://localhost:5001"};
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

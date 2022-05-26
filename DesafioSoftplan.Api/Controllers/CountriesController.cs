@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace DesafioSoftplan.Api.Controllers
 {
     [Route("api/v1/[controller]")]
+    [Authorize]
     [ApiController]
     public class CountriesController : ControllerBase
     {

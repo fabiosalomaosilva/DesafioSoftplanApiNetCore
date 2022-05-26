@@ -1,5 +1,4 @@
-﻿using DesafioSoftplan.Domain.Entities;
-using DesafioSoftplan.Infra.Data.Validations;
+﻿using DesafioSoftplan.Infra.Data.Validations;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioSoftplan.Infra.Data.Context

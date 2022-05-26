@@ -18,17 +18,16 @@ namespace DesafioSoftplan.Infra.Ioc
         public static void AddContainerDependencyInjection(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<DataContext>(opt =>
-                opt.UseSqlServer(configuration.GetConnectionString("connectiondb")));
+                opt.UseSqlite(configuration.GetConnectionString("connectiondb")));
+
             services.AddAutoMapper(typeof(DtoToEntityMapper), typeof(EntityToDtoMapper));
 
-
-
             //Repositories
-            services.AddScoped<ICountryRepository, CountryRepositorio>();
+            services.AddScoped<IUserRepository, UserRepositorio>();
             services.AddScoped<ICountryRepository, CountryRepositorio>();
 
             //Services
-            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICountryService, CountryService>();
 
             //Validations

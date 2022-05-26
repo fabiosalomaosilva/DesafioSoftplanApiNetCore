@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DesafioSoftplan.Api.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v2/[controller]")]
     [ApiController]
     public class UsuersController : ControllerBase
     {
@@ -73,8 +73,8 @@ namespace DesafioSoftplan.Api.Controllers
             {
                 try
                 {
-                    //var register = await _usuarioService.GetAsync(obj.Id);
-                    //if (register == null) return BadRequest("Registro não encontrado com o Id informado");
+                    var register = await _userService.EditAsync(obj);
+                    if (register == null) return BadRequest("Registro não encontrado com o Id informado");
 
                     return Ok(await _userService.EditAsync(obj));
                 }
@@ -104,5 +104,4 @@ namespace DesafioSoftplan.Api.Controllers
             }
         }
     }
-
 }

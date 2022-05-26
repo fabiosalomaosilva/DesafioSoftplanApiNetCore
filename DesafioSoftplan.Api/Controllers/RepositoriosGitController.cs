@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ namespace DesafioSoftplan.Api.Controllers
         // GET: api/<UsuariosController>
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             try
             {
@@ -30,5 +29,6 @@ namespace DesafioSoftplan.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
     }
 }

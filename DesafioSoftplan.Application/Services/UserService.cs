@@ -27,27 +27,34 @@ namespace DesafioSoftplan.Services.Services
 
         public async Task<UserDto> GetAsync(int id)
         {
-            var User = await _UserRepository.GetAsync(id);
-            return _mapper.Map<UserDto>(User);
+            var user = await _UserRepository.GetAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
 
         public async Task<UserDto> AddAsync(UserDto obj)
         {
-            var User = _mapper.Map<User>(obj);
-            await _UserRepository.AddAsync(User);
-            return _mapper.Map<UserDto>(User);
+            var user = _mapper.Map<User>(obj);
+            await _UserRepository.AddAsync(user);
+            return _mapper.Map<UserDto>(user);
         }
 
         public async Task<UserDto> EditAsync(UserDto obj)
         {
-            var User = _mapper.Map<User>(obj);
-            await _UserRepository.EditAsync(User);
-            return _mapper.Map<UserDto>(User);
+            var user = _mapper.Map<User>(obj);
+            await _UserRepository.EditAsync(user);
+            return _mapper.Map<UserDto>(user);
         }
 
         public async Task DeleteAsync(int id)
         {
             await _UserRepository.DeleteAsync(id);
+        }
+
+        public async Task<UserDto> Authenticate(string email, string password)
+        {
+            var user = await _UserRepository.Authenticate(email, password);
+            return _mapper.Map<UserDto>(user);
+
         }
     }
 
