@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  desafiosoftplan.api:
+    image: ${DOCKER_REGISTRY-}desafiosoftplanapi
+    build:
+      context: .
+      dockerfile: DesafioSoftplan.Api/Dockerfile
