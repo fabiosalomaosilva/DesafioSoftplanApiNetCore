@@ -8,9 +8,15 @@ Criação de um front-end em Angular 12, com telas de CRUD
 
 Projeto possui uma API padronizada em que se utiliza, com exceção dos endpoints de "account", do respeito aos verbos HTTP ao estilo RestFull.
 Desenvolvido em .Net Core 3.1
+
+Acesso à API exige autenticação basic com usuário pré-existente resgistrado em seed na primeira migration. (email: tester@teste.com | password: teste123)
+
 Foi disponibilizada documentação do Swagger para consultas, em ambiente de desenvolvedor.
+
 Possui versionamento V1 e V2.
+
 Os dados relativos aos países que são persistidos em banco de dados, estão sendo convertidos na camada de "services" de objeto C# para json e inseridos em linha campo único.
+
 Os dados estão sendo persistidos em banco de dados Postgres
     
 Em razão da indisponibilidade técnica da API Graph Countries, os dados estão sendo validados na API Rest Countries
