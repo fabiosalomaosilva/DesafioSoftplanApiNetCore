@@ -23,13 +23,13 @@ Para o serviço de chat, é necessário apontar a origem do (URL do site) client
     
     
  
- Projeto publicado em Azure Web App com o seguinte endereço (acessível por clientes Rest):
+- Projeto publicado em Azure Web App com o seguinte endereço (acessível por clientes Rest):
  
- https://desafiosoftplanapinetcore.azurewebsites.net
+https://desafiosoftplanapinetcore.azurewebsites.net
  
  
- O cliente Frontend (com o chat em funcionamento) está disponível em:
+- O cliente Frontend (com o chat em funcionamento) está disponível em:
  
- http://desafiosoftplan.salomaovogth.com.br
+http://desafiosoftplan.salomaovogth.com.br
     
     
