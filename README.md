@@ -22,9 +22,11 @@ Possui implementação do serviço SignalR para disponibilização de chat em te
 Para o serviço de chat, é necessário apontar a origem do (URL do site) cliente Frontend React, no CORS da API para faver a conexão.
     
     
+ 
  Projeto publicado em Azure Web App com o seguinte endereço (acessível por clientes Rest):
  
  https://desafiosoftplanapinetcore.azurewebsites.net
+ 
  
  O cliente Frontend (com o chat em funcionamento) está disponível em:
  
