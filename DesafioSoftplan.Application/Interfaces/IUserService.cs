@@ -10,9 +10,7 @@ namespace DesafioSoftplan.Services.Interfaces
 
         Task<UserDto> GetAsync(int id);
 
-        Task<UserDto> AddAsync(UserDto obj);
-
-        Task<UserDto> EditAsync(UserDto obj);
+        Task<UserDto> SaveAsync(UserDto obj);
 
         Task DeleteAsync(int id);
     }

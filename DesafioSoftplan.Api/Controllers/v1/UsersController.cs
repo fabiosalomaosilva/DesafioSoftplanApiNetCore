@@ -55,7 +55,7 @@ namespace DesafioSoftplan.Api.Controllers
             {
                 try
                 {
-                    return Ok(await _userService.AddAsync(obj));
+                    return Ok(await _userService.SaveAsync(obj));
                 }
                 catch (Exception ex)
                 {
@@ -73,10 +73,10 @@ namespace DesafioSoftplan.Api.Controllers
             {
                 try
                 {
-                    var register = await _userService.EditAsync(obj);
+                    var register = await _userService.SaveAsync(obj);
                     if (register == null) return BadRequest("Registro não encontrado com o Id informado");
 
-                    return Ok(await _userService.EditAsync(obj));
+                    return Ok(await _userService.SaveAsync(obj));
                 }
                 catch (Exception ex)
                 {

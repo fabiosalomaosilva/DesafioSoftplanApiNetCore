@@ -6,9 +6,7 @@ using DesafioSoftplan.Services.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using SharpExtensions;
 
 namespace DesafioSoftplan.Services.Services
 {
@@ -33,35 +31,61 @@ namespace DesafioSoftplan.Services.Services
 
         public async Task<CountryDto> AddAsync(CountryDto obj)
         {
-            var country = new Country();
-            var response = await _client.GetStringAsync($"/v3.1/alpha/{obj.Code}");
-            if (string.IsNullOrEmpty(response))
+            try
             {
-                response = await _client.GetStringAsync($"/v3.1/name/{obj.Name}");
+                var country = new Country();
+                var response = string.Empty;
+                var respCode = await _client.GetAsync($"/v3.1/alpha/{obj.Code}");
+                if (respCode.IsSuccessStatusCode)
+                {
+                    response = JsonConvert.SerializeObject(await respCode.Content.ReadAsStringAsync());
+                }
+                else
+                {
+                    var respNome = await _client.GetAsync($"/v3.1/name/{obj.Name}");
+                    if (respNome.IsSuccessStatusCode)
+                    {
+                        response = JsonConvert.SerializeObject(await respNome.Content.ReadAsStringAsync());
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(country.JsonInfo))
+                {
+                    var countryResponse = JsonConvert.DeserializeObject<ResCoutriesDto[]>(response)[0];
+
+                    obj.Name = countryResponse.name.common;
+                    obj.Capital = countryResponse.capital[0];
+                    obj.Code = countryResponse.cca2;
+                    obj.Area = countryResponse.area;
+                    obj.DemographicDensity = obj.Population / obj.Area;
+                };
+
+                country = _mapper.Map<Country>(obj);
+                await _countryRepository.AddAsync(country);
+                return _mapper.Map<CountryDto>(country);
             }
-
-            if (!string.IsNullOrEmpty(response))
+            catch (Exception ex)
             {
-                var countryResponse = JsonConvert.DeserializeObject<ResCoutriesDto[]>(response)[0];
-
-                obj.Name = countryResponse.name.common;
-                obj.Capital = countryResponse.capital[0];
-                obj.Code = countryResponse.cca2;
-                obj.Area = countryResponse.area;
-            };
-
-            country = _mapper.Map<Country>(obj);
-            await _countryRepository.AddAsync(country);
-            return _mapper.Map<CountryDto>(country);
+                throw ex;
+            }
         }
 
         public async Task<CountryDto> EditAsync(CountryDto obj)
         {
             var country = new Country();
-            var response = await _client.GetStringAsync($"/v3.1/alpha/{obj.Code}");
-            if (string.IsNullOrEmpty(response))
+            var response = string.Empty;
+            var respCode = await _client.GetAsync($"/v3.1/alpha/{obj.Code}");
+            if (respCode.IsSuccessStatusCode)
             {
-                response = await _client.GetStringAsync($"/v3.1/name/{obj.Name}");
+                response = JsonConvert.SerializeObject(await respCode.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                var respNome = await _client.GetAsync($"/v3.1/name/{obj.Name}");
+                if (respNome.IsSuccessStatusCode)
+                {
+                    response = JsonConvert.SerializeObject(await respNome.Content.ReadAsStringAsync());
+                }
             }
 
             if (!string.IsNullOrEmpty(response))
@@ -72,6 +96,7 @@ namespace DesafioSoftplan.Services.Services
                 obj.Capital = countryResponse.capital[0];
                 obj.Code = countryResponse.cca2;
                 obj.Area = countryResponse.area;
+                obj.DemographicDensity = obj.Population / obj.Area;
             };
 
             country = _mapper.Map<Country>(obj);

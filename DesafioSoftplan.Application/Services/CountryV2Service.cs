@@ -31,10 +31,19 @@ namespace DesafioSoftplan.Services.Services
         public async Task<CountryV2Dto> AddAsync(CountryV2Dto obj)
         {
             var country = new Country();
-            var response = await _client.GetStringAsync($"/{obj.Code}");
-            if (string.IsNullOrEmpty(response))
+            var response = string.Empty;
+            var respCode = await _client.GetAsync($"/v3.1/alpha/{obj.Code}");
+            if (respCode.IsSuccessStatusCode)
             {
-                response = await _client.GetStringAsync($"/{obj.Name}");
+                response = JsonConvert.SerializeObject(await respCode.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                var respNome = await _client.GetAsync($"/v3.1/name/{obj.Name}");
+                if (respNome.IsSuccessStatusCode)
+                {
+                    response = JsonConvert.SerializeObject(await respNome.Content.ReadAsStringAsync());
+                }
             }
 
             if (!string.IsNullOrEmpty(response))
@@ -45,6 +54,7 @@ namespace DesafioSoftplan.Services.Services
                 obj.Capital = countryResponse.capital[0];
                 obj.Code = countryResponse.cca2;
                 obj.Area = countryResponse.area;
+                obj.DemographicDensity = obj.Population / obj.Area;
             };
 
             country = _mapper.Map<Country>(obj);
@@ -55,10 +65,19 @@ namespace DesafioSoftplan.Services.Services
         public async Task<CountryV2Dto> EditAsync(CountryV2Dto obj)
         {
             var country = new Country();
-            var response = await _client.GetStringAsync($"/{obj.Code}");
-            if (string.IsNullOrEmpty(response))
+            var response = string.Empty;
+            var respCode = await _client.GetAsync($"/v3.1/alpha/{obj.Code}");
+            if (respCode.IsSuccessStatusCode)
             {
-                response = await _client.GetStringAsync($"/{obj.Name}");
+                response = JsonConvert.SerializeObject(await respCode.Content.ReadAsStringAsync());
+            }
+            else
+            {
+                var respNome = await _client.GetAsync($"/v3.1/name/{obj.Name}");
+                if (respNome.IsSuccessStatusCode)
+                {
+                    response = JsonConvert.SerializeObject(await respNome.Content.ReadAsStringAsync());
+                }
             }
 
             if (!string.IsNullOrEmpty(response))
@@ -69,6 +88,7 @@ namespace DesafioSoftplan.Services.Services
                 obj.Capital = countryResponse.capital[0];
                 obj.Code = countryResponse.cca2;
                 obj.Area = countryResponse.area;
+                obj.DemographicDensity = obj.Population / obj.Area;
             };
 
             country = _mapper.Map<Country>(obj);

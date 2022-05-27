@@ -24,5 +24,10 @@ namespace DesafioSoftplan.Infra.Data.Repositories
 
             return user;
         }
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            return await Task.Run(() => _dbContext.Set<User>().FirstOrDefault(x => x.Email == email));
+        }
     }
 }

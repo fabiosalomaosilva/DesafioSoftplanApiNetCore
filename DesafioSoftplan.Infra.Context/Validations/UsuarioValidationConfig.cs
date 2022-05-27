@@ -12,7 +12,7 @@ namespace DesafioSoftplan.Infra.Data.Validations
             builder.Property(p => p.Id).IsRequired().UseIdentityColumn();
             builder.Property(p => p.Name).IsRequired();
             builder.Property(p => p.Email).IsRequired();
-            builder.Property(p => p.Password).IsRequired();
+            builder.Property(p => p.Password);
             builder.Property(p => p.Photo);
             builder.Property(p => p.LoginProvider);
             builder.Property(p => p.Street);

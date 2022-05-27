@@ -31,18 +31,20 @@ namespace DesafioSoftplan.Services.Services
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<UserDto> AddAsync(UserDto obj)
+        public async Task<UserDto> SaveAsync(UserDto obj)
         {
+            var exists = await _UserRepository.GetByEmailAsync(obj.Email);
             var user = _mapper.Map<User>(obj);
-            await _UserRepository.AddAsync(user);
-            return _mapper.Map<UserDto>(user);
-        }
-
-        public async Task<UserDto> EditAsync(UserDto obj)
-        {
-            var user = _mapper.Map<User>(obj);
-            await _UserRepository.EditAsync(user);
-            return _mapper.Map<UserDto>(user);
+            if (exists != null && string.IsNullOrEmpty(exists.Email))
+            {
+                await _UserRepository.EditAsync(user);
+                return _mapper.Map<UserDto>(user);
+            }
+            else
+            {
+                await _UserRepository.AddAsync(user);
+                return _mapper.Map<UserDto>(user);
+            }
         }
 
         public async Task DeleteAsync(int id)
