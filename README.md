@@ -31,5 +31,9 @@ https://desafiosoftplanapinetcore.azurewebsites.net
 - O cliente Frontend (com o chat em funcionamento) está disponível em:
  
 http://desafiosoftplan.salomaovogth.com.br
+
+- API possui endpoint via HTTP GET que retorna os links de repositórios:
+
+https://desafiosoftplanapinetcore.azurewebsites.net/api/v1/RepositoriosGit
     
     
