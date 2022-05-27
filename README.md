@@ -1,4 +1,4 @@
-# DesafioSoftplan
+# Desafio Softplan - Backend .Net
 
 Teste técnico para criação de Web API com regras de negócio e persistencia de dados, utilizando conceitos de DDD, SOLID e Clean Code
 
