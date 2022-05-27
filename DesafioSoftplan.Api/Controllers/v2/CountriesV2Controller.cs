@@ -5,16 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace DesafioSoftplan.Api.Controllers
+namespace DesafioSoftplan.Api.Controllers.v2
 {
-    [Route("api/v2/Countries")]
+    [ApiVersion("2.0")]
+    [Route("api/v2/[controller]")]
     [Authorize]
     [ApiController]
-    public class CountriesV2Controller : ControllerBase
+    public class CountriesController : ControllerBase
     {
         private readonly ICountryV2Service _countryV2Service;
 
-        public CountriesV2Controller(ICountryV2Service countryService)
+        public CountriesController(ICountryV2Service countryService)
         {
             _countryV2Service = countryService;
         }

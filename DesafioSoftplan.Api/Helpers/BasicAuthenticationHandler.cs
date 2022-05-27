@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using DesafioSoftplan.Services.Dtos;
+using DesafioSoftplan.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -12,14 +14,18 @@ namespace DesafioSoftplan.Api.Helpers
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
+        private readonly IAuthService _authService;
+
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
-            ISystemClock clock
+            ISystemClock clock,
+            IAuthService authService
             )
     : base(options, logger, encoder, clock)
         {
+            _authService = authService;
         }
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -44,13 +50,14 @@ namespace DesafioSoftplan.Api.Helpers
             var authSplit = authBase64.Split(Convert.ToChar(":"), 2);
             var username = authSplit[0];
             var password = authSplit.Length > 1 ? authSplit[1] : throw new Exception("Unable to get password");
+            var user = Task.Run(() => _authService.Authenticate(new LoginDto(username, password))).Result;
 
-            if (username != "teste123" || password != "teste123")
+            if (string.IsNullOrEmpty(user?.Email))
             {
                 return Task.FromResult(AuthenticateResult.Fail("The username or password is not correct."));
             }
 
-            var authenticatedUser = new AuthenticatedUser("BasicAuthentication", true, "teste123");
+            var authenticatedUser = new AuthenticatedUser("BasicAuthentication", true, user.Name);
             var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(authenticatedUser));
 
             return Task.FromResult(AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, Scheme.Name)));

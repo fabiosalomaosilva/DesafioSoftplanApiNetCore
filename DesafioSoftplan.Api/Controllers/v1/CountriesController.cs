@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace DesafioSoftplan.Api.Controllers
+namespace DesafioSoftplan.Api.Controllers.v1
 {
+    [ApiVersion("1.0")]
     [Route("api/v1/[controller]")]
     [Authorize]
     [ApiController]
