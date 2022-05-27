@@ -21,8 +21,8 @@ NÃO NECESSITA DE CONFIGURAÇÕES PARA NOVAS IMPLANTAÇÕES para as APIs de paí
 Possui implementação do serviço SignalR para disponibilização de chat em tempo real. 
 Para o serviço de chat, é necessário apontar a origem do (URL do site) cliente Frontend React, no CORS da API para faver a conexão.
     
-    
- 
+# Endereços dos serviços publicados
+
 - Projeto publicado em Azure Web App com o seguinte endereço (acessível por clientes Rest):
  
 https://desafiosoftplanapinetcore.azurewebsites.net
