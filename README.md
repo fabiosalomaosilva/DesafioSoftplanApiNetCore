@@ -39,5 +39,11 @@ http://desafiosoftplan.salomaovogth.com.br
 - API possui endpoint via HTTP GET que retorna os links de repositórios:
 
 https://desafiosoftplanapinetcore.azurewebsites.net/api/v1/RepositoriosGit
+
+- Repositorio do DockerHub para a imagem da API
+
+https://hub.docker.com/repository/docker/fabiosalomao/desafio-softplan-api
+
+        docker run --name desafioapi -p 8000:80 fabiosalomao/desafio-softplan-api:dev
     
     
