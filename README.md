@@ -44,6 +44,7 @@ https://desafiosoftplanapinetcore.azurewebsites.net/api/v1/RepositoriosGit
 
 https://hub.docker.com/repository/docker/fabiosalomao/desafio-softplan-api
 
+        docker push fabiosalomao/desafio-softplan-api:dev
         docker run --name desafioapi -p 8000:80 fabiosalomao/desafio-softplan-api:dev
     
 Instalação por meio do Kubernetes
