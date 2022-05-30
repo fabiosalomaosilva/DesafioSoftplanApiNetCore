@@ -46,4 +46,7 @@ https://hub.docker.com/repository/docker/fabiosalomao/desafio-softplan-api
 
         docker run --name desafioapi -p 8000:80 fabiosalomao/desafio-softplan-api:dev
     
-    
+Instalação por meio do Kubernetes
+        
+        kubectl apply -f kubernetes.yaml
+        kubectl apply -f kubernetes-svc.yaml
